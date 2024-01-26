@@ -18,6 +18,6 @@ const HostelSchema = new mongoose.Schema({
         require:true
     }
 })
-const collection = mongoose.model("Hostels",HostelSchema)
+const hostels = mongoose.model("Hostels",HostelSchema)
 
-module.exports = collection
+module.exports = hostels

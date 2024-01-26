@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser')
-const collection = require('./mongodb')
+const hostels = require('./mongodb')
 const port = process.env.PORT;
 
 // app.use(express.urlencoded({extended:false}))
@@ -25,7 +25,7 @@ app.listen(port,()=>{
 app.get('/api/login',async (req,res)=>{
 
     try{
-        const check = await collection.findOne({username:req.body.username})
+        const check = await hostels.findOne({username:req.body.username})
         
         if(check.password === req.body.password){
             res.sendStatus(200)
