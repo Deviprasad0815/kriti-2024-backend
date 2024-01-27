@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT;
 const connectDB=require('../config/config');
 const login = require('../controller/login');
-const ProbS = require('../controller/PS');
+const PS = require('../controller/PS');
 
 app.listen(port,()=>{
     console.log(`server listening on port ${port}`);
@@ -16,7 +16,9 @@ let db =  connectDB();
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.get('/api/login',login)
-app.get('/api/:id',ProbS)
+app.get('/api/:id',PS.ProbS)
+app.get('/edit',PS.edit)
+app.post('/edit',PS.update)
 // app.post('/login',async (req,res)=>{
 //     const data = {
 //         username:req.body.username,
