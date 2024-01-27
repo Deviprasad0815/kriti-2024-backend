@@ -14,8 +14,8 @@ const login = async (req,res)=>{
             res.sendStatus(401)
         }
     }
-    catch{
-        res.sendStatus(404)
+    catch(e){
+        res.sendStatus(404).send(e);
     }
 }
 
