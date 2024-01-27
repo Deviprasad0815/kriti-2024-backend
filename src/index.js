@@ -1,17 +1,22 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
-const bodyParser = require('body-parser')
-const hostels = require('./mongodb')
-const port = process.env.PORT;
 
-// app.use(express.urlencoded({extended:false}))
-app.use(bodyParser.urlencoded({extended:true}))
+const port = process.env.PORT;
+const connectDB=require('../config/config');
+const login = require('../controller/login');
+const ProbS = require('../controller/PS');
 
 app.listen(port,()=>{
     console.log(`server listening on port ${port}`);
 } )
 
+let db =  connectDB();
+// app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
+app.get('/api/login',login)
+app.get('/api/:id',ProbS)
 // app.post('/login',async (req,res)=>{
 //     const data = {
 //         username:req.body.username,
@@ -22,19 +27,7 @@ app.listen(port,()=>{
 //     res.sendStatus(202)
 // })
 
-app.get('/api/login',async (req,res)=>{
-
-    try{
-        const check = await hostels.findOne({username:req.body.username})
-        
-        if(check.password === req.body.password){
-            res.sendStatus(200)
-        }
-        else{
-            res.sendStatus(401)
-        }
-    }
-    catch{
-        res.sendStatus(404)
-    }
-})
+// app.get('/api/:code',async (req,res)=>{
+//     const ps=await PS.findById(req.params.code);
+//     res.status(200).json(ps);
+// })

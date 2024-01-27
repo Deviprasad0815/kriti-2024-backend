@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-require('dotenv').config();
-mongoose.connect(process.env.MongoDBURL)
-.then(()=>{
-    console.log("connected to database")
-})
-.catch((err)=>{
-    console.log(err)
-})
+// require('dotenv').config();
+// mongoose.connect(process.env.MongoDBURL)
+// .then(()=>{
+//     console.log("connected to database")
+// })
+// .catch((err)=>{
+//     console.log(err)
+// })
 
 const HostelSchema = new mongoose.Schema({
     username:{
@@ -21,3 +21,5 @@ const HostelSchema = new mongoose.Schema({
 const hostels = mongoose.model("Hostels",HostelSchema)
 
 module.exports = hostels
+
+
