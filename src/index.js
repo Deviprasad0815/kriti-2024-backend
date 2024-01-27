@@ -1,12 +1,12 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
-const bodyParser = require('body-parser')
 const hostels = require('./mongodb')
 const port = process.env.PORT;
 
 // app.use(express.urlencoded({extended:false}))
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 
 app.listen(port,()=>{
     console.log(`server listening on port ${port}`);
@@ -23,7 +23,7 @@ app.listen(port,()=>{
 // })
 
 app.get('/api/login',async (req,res)=>{
-
+    // console.log(req.body)
     try{
         const check = await hostels.findOne({username:req.body.username})
         
