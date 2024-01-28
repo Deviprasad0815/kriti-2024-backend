@@ -6,6 +6,7 @@ const port = process.env.PORT;
 const connectDB=require('../config/config');
 const login = require('../controller/login');
 const PS = require('../controller/PS');
+const hostelroouter = require( "../routes/hostel.js");
 
 app.listen(port,()=>{
     console.log(`server listening on port ${port}`);
@@ -19,6 +20,7 @@ app.get('/api/login',login)
 app.get('/api/:id',PS.ProbS)
 app.get('/edit',PS.edit)
 app.post('/edit',PS.update)
+app.use("/hostel",hostelroouter);
 // app.post('/login',async (req,res)=>{
 //     const data = {
 //         username:req.body.username,
