@@ -1,5 +1,6 @@
 
 const PS = require('../models/PSschema');
+const hostels = require('../models/hostel');
 const psRegister = async (req, res) => {
     try
     {
@@ -23,4 +24,15 @@ const psRegister = async (req, res) => {
     }
 };
 
-module.exports = {psRegister};
+const getHostel = async (req,res)=>{
+    try{
+        const hostel = await hostels.findById(req.userId);
+        res.json(hostel).status(200);
+    }
+    catch(err){
+        console.log(err);
+        res.sendStatus(403);
+    }
+};
+
+module.exports = {psRegister,getHostel};
