@@ -24,6 +24,21 @@ const psRegister = async (req, res) => {
     }
 };
 
+const findPS = async (req,res)=>{
+    try{
+        const ps = await PS.findOne({psName:req.body.psName,hostel:req.userId});
+        if(!ps){
+            res.sendStatus(201)
+        }
+        else{
+            res.status(200).send({ps})
+        }
+    }
+    catch(err){
+        
+    }
+}
+
 const getHostel = async (req,res)=>{
     try{
         const hostel = await hostels.findById(req.userId);
@@ -35,4 +50,4 @@ const getHostel = async (req,res)=>{
     }
 };
 
-module.exports = {psRegister,getHostel};
+module.exports = {psRegister,getHostel, findPS};
