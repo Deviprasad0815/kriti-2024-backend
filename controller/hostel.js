@@ -35,7 +35,7 @@ const findPS = async (req,res)=>{
         }
     }
     catch(err){
-        
+        res.send(500,err)
     }
 }
 
