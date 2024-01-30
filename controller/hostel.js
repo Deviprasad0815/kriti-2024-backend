@@ -1,7 +1,6 @@
 
 const PS = require('../models/PSschema');
 const hostels = require('../models/hostel');
-const mongoose = require('mongoose');
 const psRegister = async (req, res) => {
     try
     {
@@ -11,13 +10,17 @@ const psRegister = async (req, res) => {
             res.sendStatus(403);
             return;
         }
-        const ps = new PS({
-            psName:req.body.psName,
-            hostel:req.userId,
-            studentsData:req.body.participants
-        });
-        await ps.save();
-        res.sendStatus(201);
+        else
+        {
+            const ps = new PS({
+                psName:req.body.psName,
+                hostel:req.userId,
+                studentsData:req.body.participants
+            });
+            await ps.save();
+            res.sendStatus(201);
+        }
+        
     }
     catch(err){
         console.log(err);
