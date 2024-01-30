@@ -27,7 +27,6 @@ const psRegister = async (req, res) => {
 
 const findPS = async (req,res)=>{
     try{
-        console.log(req.body);
         const ps = await PS.findOne({psName:req.body.psName, hostel:req.userId});
        
             if(ps){

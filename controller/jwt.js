@@ -10,9 +10,16 @@ const login = async (req,res)=>{
             jwt.sign({check},'kriti2024',{
                 expiresIn: 60*60*24,
             },(err,token)=>{
-                res.json({
-                    token
-                }).status(200);
+                if(err){
+                    console.log(err);
+                    return res.sendStatus(403);
+                }
+                else
+                {
+                    res.json({
+                        token
+                    }).status(200);
+                }
             })
         }
         else{
@@ -31,7 +38,7 @@ const verifyToken = (req,res,next)=>{
         jwt.verify(bearerHeader, "kriti2024", (err, decoded) => {
             if (err) {
                 console.log(err);
-                res.json({ auth: false, message: "you are failed to authenticate"});
+                res.json({ auth: false, message: "you are failed to authenticate"}).status(403);
             } else {
                 req.userId = decoded.check._id;
                 next();
