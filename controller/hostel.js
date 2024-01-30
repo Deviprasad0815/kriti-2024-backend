@@ -28,16 +28,17 @@ const psRegister = async (req, res) => {
 const findPS = async (req,res)=>{
     try{
         console.log(req.body);
-        const ps = await PS.find({psName:req.body.psName});
-        console.log(req.userId);
-        ps.forEach((p)=>{
-            console.log(p);
-            if(p.hostel.equals(req.userId)){
+        const ps = await PS.findOne({psName:req.body.psName, hostel:req.userId});
+       
+            if(ps){
                 res.status(200).send({ps})
                 return;
             }
-        })
-            res.sendStatus(201);
+            else
+            {
+                res.sendStatus(201);
+            }
+
     }
     catch(err){
         console.log(err);
