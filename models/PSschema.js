@@ -6,27 +6,23 @@ const psSchema=new mongoose.Schema({
         required:true
     },
     
-    organizer:{
-        type:String,
-        required:true
-    },
-    noOfPeople:{
-        type:String,
-        required:true
-    },
-    
+    hostel:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Hostels",
+    }
+    ,
     studentsData:[{
         
-        Name:{
+        name:{
             type:String,
             required:true
         },
         rollNo:{
-            type:Number,
+            type:String,
             required:true
         },
         year:{
-            type:Number,
+            type:String,
             required:true
         }
 

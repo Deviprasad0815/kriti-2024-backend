@@ -27,16 +27,14 @@ const login = async (req,res)=>{
 const verifyToken = (req,res,next)=>{
     try{
     const bearerHeader = req.headers['authorization'];
-    console.log(bearerHeader);
     if(typeof bearerHeader !== 'undefined'){;
         jwt.verify(bearerHeader, "kriti2024", (err, decoded) => {
             if (err) {
                 console.log(err);
                 res.json({ auth: false, message: "you are failed to authenticate"});
             } else {
-                req.userId = decoded.id;
-                res.json({ auth: true, message: "you are successfully authenticated"});
-                // next();
+                req.userId = decoded.check._id;
+                next();
             }});
     }
     else{
