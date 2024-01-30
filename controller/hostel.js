@@ -7,7 +7,7 @@ const psRegister = async (req, res) => {
         
         const check = await PS.findOne({psName:req.body.psName,hostel:req.userId});
         if(check){
-            res.sendStatus(403);
+            res.sendStatus(299); //frontend using this err code 
             return;
         }
         const ps = new PS({
@@ -20,7 +20,7 @@ const psRegister = async (req, res) => {
     }
     catch(err){
         console.log(err);
-        res.sendStatus(500).send(err);
+        res.status(500).send(err);
     }
 };
 
