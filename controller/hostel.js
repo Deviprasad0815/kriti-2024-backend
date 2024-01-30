@@ -1,6 +1,7 @@
 
 const PS = require('../models/PSschema');
 const hostels = require('../models/hostel');
+const mongoose = require('mongoose');
 const psRegister = async (req, res) => {
     try
     {
@@ -26,15 +27,20 @@ const psRegister = async (req, res) => {
 
 const findPS = async (req,res)=>{
     try{
-        const ps = await PS.findOne({psName:req.body.psName,hostel:req.userId});
-        if(!ps){
-            res.sendStatus(201)
-        }
-        else{
-            res.status(200).send({ps})
-        }
+        console.log(req.body);
+        const ps = await PS.find({psName:req.body.psName});
+        console.log(req.userId);
+        ps.forEach((p)=>{
+            console.log(p);
+            if(p.hostel.equals(req.userId)){
+                res.status(200).send({ps})
+                return;
+            }
+        })
+            res.sendStatus(201);
     }
     catch(err){
+        console.log(err);
         res.send(500,err)
     }
 }
