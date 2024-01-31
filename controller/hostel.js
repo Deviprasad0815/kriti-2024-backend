@@ -5,7 +5,7 @@ const psRegister = async (req, res) => {
     try
     {
         
-        const check = await PS.findOne({psName:req.body.psName,hostel:req.userId});
+        const check = await PS.findOne({psName:req.body.psName,hostel:req.user._id});
         if(check){
             res.sendStatus(299); //frontend using this err code 
             return;
@@ -14,7 +14,8 @@ const psRegister = async (req, res) => {
         {
             const ps = new PS({
                 psName:req.body.psName,
-                hostel:req.userId,
+                hostel:req.user._id,
+                hostelName:req.user.username,
                 studentsData:req.body.participants
             });
             await ps.save();
@@ -30,7 +31,7 @@ const psRegister = async (req, res) => {
 
 const findPS = async (req,res)=>{
     try{
-        const ps = await PS.findOne({psName:req.body.psName, hostel:req.userId});
+        const ps = await PS.findOne({psName:req.body.psName, hostel:req.user._id});
        
             if(ps){
                 res.status(200).send({ps})
@@ -50,7 +51,7 @@ const findPS = async (req,res)=>{
 
 const getHostel = async (req,res)=>{
     try{
-        const hostel = await hostels.findById(req.userId);
+        const hostel = await hostels.findById(req.user._id);
         res.json(hostel).status(200);
     }
     catch(err){

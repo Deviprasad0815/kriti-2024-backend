@@ -9,8 +9,11 @@ const psSchema=new mongoose.Schema({
     hostel:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Hostels",
-    }
-    ,
+    },
+    hostelName:{
+        type:String,
+        required:true
+    },
     studentsData:[{
         
         name:{

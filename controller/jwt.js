@@ -40,7 +40,7 @@ const verifyToken = (req,res,next)=>{
                 console.log(err);
                 res.json({ auth: false, message: "you are failed to authenticate"}).status(403);
             } else {
-                req.userId = decoded.check._id;
+                req.user = decoded.check;
                 next();
             }});
     }

@@ -2,7 +2,10 @@ require('dotenv').config();
 const express = require("express");
 const cors = require('cors')
 const app = express();
-
+const cookieParser = require("cookie-parser");
+const getAdminRouter = require("../config/adminBro.js");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const port = process.env.PORT;
 const connectDB=require('../config/config');
 const login = require('../controller/login');
@@ -13,27 +16,29 @@ app.listen(port,()=>{
     console.log(`server listening on port ${port}`);
 } )
 
-let db =  connectDB();
-// app.use(express.urlencoded({extended:false}))
+app.use(cookieParser('secret'));
+app.use(morgan("dev"));
+let db 
+let adminRouter
+
+const start = async () => {
+    try {
+        db =await connectDB();
+        
+        adminRouter = getAdminRouter(db, app);
+        app.use(bodyParser.json());
+        app.use("/admin",adminRouter);
+        app.get('/api/login',login)
+        app.get('/api/:id',PS.ProbS)
+        app.get('/edit',PS.edit)
+        app.post('/edit',PS.update)
+        app.use("/hostel",hostelroouter);
+        
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+start();
+
 app.use(cors());
-app.use(express.urlencoded({extended:true}))
-app.use(express.json())
-app.get('/api/login',login)
-app.get('/api/:id',PS.ProbS)
-app.get('/edit',PS.edit)
-app.post('/edit',PS.update)
-app.use("/hostel",hostelroouter);
-// app.post('/login',async (req,res)=>{
-//     const data = {
-//         username:req.body.username,
-//         password:req.body.password
-//     }
-
-//     await collection.insertMany([data])
-//     res.sendStatus(202)
-// })
-
-// app.get('/api/:code',async (req,res)=>{
-//     const ps=await PS.findById(req.params.code);
-//     res.status(200).json(ps);
-// })
