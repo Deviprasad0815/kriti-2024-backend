@@ -5,7 +5,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const getAdminRouter = require("../config/adminBro.js");
 const bodyParser = require("body-parser");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const port = process.env.PORT;
 const connectDB=require('../config/config');
 const login = require('../controller/login');
@@ -17,7 +17,7 @@ app.listen(port,()=>{
 } )
 
 app.use(cookieParser('secret'));
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 let db 
 let adminRouter
 
