@@ -46,6 +46,10 @@ const psSchema = new mongoose.Schema({
       },
     },
   ],
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const PS = mongoose.model("PS", psSchema);
